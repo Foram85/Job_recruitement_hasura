@@ -1,0 +1,362 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Current status of a job application"""
+enum ApplicationStatus {
+  APPROVED
+  HIRED
+  INTERVIEW
+  NEW
+  OFFER
+  REJECTED
+  REVIEW
+  SCREENING
+}
+
+type Candidate {
+  applications: [JobApplication!]!
+  createdAt: DateTime!
+  email: String!
+  id: ID!
+  isActive: Boolean!
+  name: String!
+  updatedAt: DateTime!
+}
+
+type CandidateAuthPayload {
+  accessToken: String!
+  applications: [JobApplication!]!
+}
+
+input CreateCandidateInput {
+  email: String!
+  password: String!
+  token: String!
+}
+
+input CreateDepartmentInput {
+  name: String!
+}
+
+input CreateEmployeeInput {
+  departmentId: String!
+  email: String!
+  hireDate: DateTime!
+  name: String!
+  phone: String!
+  role: String!
+}
+
+input CreateInterviewInput {
+  applicationId: String!
+  employeeId: String!
+  end: DateTime!
+  link: String
+  round: Float!
+  start: DateTime!
+  type: String!
+}
+
+input CreateJobApplicationInput {
+  candidateEmail: String
+  candidateId: String
+  candidateName: String
+  coverLetter: String!
+  expectedSalary: Float!
+  positionId: String!
+  referralSource: String!
+  resumeUrl: String!
+}
+
+input CreateJobPositionInput {
+  closingAt: DateTime!
+  departmentId: String!
+  description: String!
+  experienceLevel: String!
+  isRemote: Boolean!
+  jobLocation: String!
+  openingAt: DateTime!
+  openings: Float!
+  positionType: PositionType!
+  requirements: String!
+  salaryMax: Float!
+  salaryMin: Float!
+  title: String!
+}
+
+input CreateReviewInput {
+  communicationScore: Float
+  interviewId: String!
+  isRecommended: Boolean!
+  reviewDate: DateTime!
+  reviewText: String!
+  technicalScore: Float
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Department {
+  createdAt: DateTime!
+  id: ID!
+  isActive: Boolean!
+  name: String!
+}
+
+type Employee {
+  createdAt: DateTime!
+  department: Department!
+  email: String!
+  hireDate: DateTime!
+  id: ID!
+  isActive: Boolean!
+  name: String!
+  phone: String!
+  role: EmployeeRole!
+  status: EmployeeStatus!
+  updatedAt: DateTime!
+}
+
+type EmployeeAuthPayload {
+  accessToken: String!
+}
+
+input EmployeeLoginInput {
+  email: String!
+  password: String!
+  token: String!
+}
+
+"""Role of an employee in the hiring process"""
+enum EmployeeRole {
+  Employee
+  HR
+  HiringManager
+  Interviewer
+  Recruiter
+}
+
+"""Employment status of an employee"""
+enum EmployeeStatus {
+  Contract
+  FullTime
+  PartTime
+}
+
+input FilterPositionInput {
+  isRemote: Boolean
+  search: String
+  status: PositionStatus
+  type: PositionType
+}
+
+type Interview {
+  application: JobApplication!
+  createdAt: DateTime!
+  employee: Employee!
+  end: DateTime!
+  id: ID!
+  link: String!
+  round: Float!
+  start: DateTime!
+  status: InterviewStatus!
+  type: InterviewType!
+}
+
+"""Current status of an interview"""
+enum InterviewStatus {
+  CANCELLED
+  COMPLETED
+  SCHEDULED
+}
+
+"""Type of interview being conducted"""
+enum InterviewType {
+  IN_PERSON
+  PHONE
+  VIRTUAL
+}
+
+type JobApplication {
+  appliedAt: DateTime!
+  candidate: Candidate
+  candidateEmail: String
+  candidateName: String
+  coverLetter: String!
+  expectedSalary: Float!
+  hasReviewed: Boolean!
+  id: ID!
+  position: JobPosition!
+  referralSource: String!
+  resumeUrl: String!
+  reviewerId: Employee
+  status: ApplicationStatus!
+}
+
+type JobPosition {
+  closingAt: DateTime!
+  createdAt: DateTime!
+  department: Department!
+  description: String!
+  experienceLevel: String!
+  id: ID!
+  isRemote: Boolean!
+  jobLocation: String!
+  openingAt: DateTime!
+  openings: Float!
+  positionStatus: PositionStatus!
+  positionType: PositionType!
+  requirements: String!
+  salaryMax: Float!
+  salaryMin: Float!
+  title: String!
+  updatedAt: DateTime!
+}
+
+type Mutation {
+  create(data: CreateCandidateInput!): CandidateAuthPayload!
+  createDepartment(data: CreateDepartmentInput!): Department!
+  createJobApplication(data: CreateJobApplicationInput!): JobApplication!
+  createJobPosition(data: CreateJobPositionInput!): JobPosition!
+  createReview(data: CreateReviewInput!): Review!
+  deleteById(id: String!): String!
+  deleteDepartment(id: String!): Boolean!
+  deleteEmployee(id: String!): Boolean!
+  deleteInterview(id: String!): Boolean!
+  deleteJobPosition(id: String!): Boolean!
+  deleteReview(id: String!): String!
+  forgotPassword(id: String!): Boolean!
+  forgottenPassword(id: String!): Boolean!
+  loginEmployee(data: EmployeeLoginInput!): EmployeeAuthPayload!
+  offerCandidate(id: String!, offerData: OfferInput!): JobApplication!
+  registerEmployee(data: CreateEmployeeInput!): Employee!
+  registerInterview(data: CreateInterviewInput!): Interview!
+  resetPassword(data: ResetPasswordInput!): CandidateAuthPayload!
+  submitToHiringManager(hiringManagerId: String!, id: String!): JobApplication!
+  updateEmployee(data: UpdateEmployeeInput!, id: String!): Employee!
+  updateInterview(data: UpdateInterviewInput!, id: String!): Interview!
+  updateJobApplication(data: UpdateApplicationInput!, id: String!): JobApplication!
+  updateJobPosition(data: UpdateJobPositionInput!, id: String!): JobPosition!
+  updateOneById(data: UpdateCandidateInput!, id: String!): Candidate!
+  updateReview(data: UpdateReviewInput!, id: String!): Review!
+}
+
+input OfferInput {
+  joiningDate: String!
+  offerLetterLink: String!
+  salary: Float
+}
+
+"""Status of a job position"""
+enum PositionStatus {
+  FILLED
+  OPEN
+}
+
+"""Available job position types"""
+enum PositionType {
+  CONTRACT
+  FULL_TIME
+  PART_TIME
+}
+
+type Query {
+  findOneById(id: String!): Candidate!
+  getAll: [Candidate!]!
+  getAllDepartments: [Department!]!
+  getAllInterviews: [Interview!]!
+  getAllJobPositions(filter: FilterPositionInput): [JobPosition!]!
+  getAllReviews: [Review!]!
+  getDepartmentById(id: String!): Department!
+  getEmployeeById(id: String!): Employee!
+  getEmployees: [Employee!]!
+  getInterviewById(id: String!): Interview!
+  getJobApplicationById(id: String!): JobApplication!
+  getJobApplications(status: String): [JobApplication!]!
+  getJobPositionById(id: String!): JobPosition!
+  getReviewById(id: String!): Review!
+}
+
+input ResetPasswordInput {
+  email: String!
+  newPassword: String!
+  token: String!
+}
+
+type Review {
+  communicationScore: Float
+  createdAt: DateTime!
+  employee: Employee!
+  id: ID!
+  interview: Interview!
+  isRecommended: Boolean!
+  reviewDate: DateTime!
+  reviewText: String!
+  status: ReviewStatus!
+  technicalScore: Float
+  updatedAt: DateTime!
+}
+
+"""Status of a job application review"""
+enum ReviewStatus {
+  APPROVED
+  SUBMITTED
+}
+
+input UpdateApplicationInput {
+  status: String
+}
+
+input UpdateCandidateInput {
+  name: String
+}
+
+input UpdateEmployeeInput {
+  departmentId: String
+  email: String
+  employementStatus: EmployeeStatus
+  hireDate: DateTime
+  isActive: Boolean
+  name: String
+  phone: String
+  role: EmployeeRole
+}
+
+input UpdateInterviewInput {
+  end: DateTime
+  link: String
+  round: Float
+  start: DateTime
+  type: String
+}
+
+input UpdateJobPositionInput {
+  closingAt: DateTime
+  departmentId: String
+  description: String
+  experienceLevel: String
+  isRemote: Boolean
+  jobLocation: String
+  maxSalary: Float
+  minSalary: Float
+  openingAt: DateTime
+  openings: Float
+  positionStatus: PositionStatus
+  positionType: PositionType
+  requirements: String
+  title: String
+}
+
+input UpdateReviewInput {
+  communicationScore: Float
+  employeeId: String
+  interviewId: String
+  isRecommended: Boolean
+  reviewDate: DateTime
+  reviewText: String
+  status: ReviewStatus
+  technicalScore: Float
+}

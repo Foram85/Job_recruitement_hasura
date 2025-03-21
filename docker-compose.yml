@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: jobRecruitment
+      POSTGRES_USER: Foram
+      POSTGRES_PASSWORD: Foram3138
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+
+  hasura:
+    image: hasura/graphql-engine:latest
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: "postgres://Foram:Foram3138@postgres:5432/jobRecruitment"
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ADMIN_SECRET: "Foram3138"
+
+    # nestjs:
+    # build: .
+    # depends_on:
+    #   - postgres
+    # ports:
+    #   - "3000:3000"
+    # environment:
+    #   HASURA_GRAPHQL_ADMIN_SECRET: "Foram3138"
+    #   HASURA_GRAPHQL_ENDPOINT: "http://localhost:3000/graphql"
+    #   DATABASE_URL: "postgres://Foram:Foram3138@postgres:5432/jobRecruitment"
+    # volumes:
+    #   - .:/app  # Mount local directory to container
+    #   - /app/node_modules  # Avoid overwriting node_modules
+    # command: ["npm", "run", "start:dev"]
+
+# scripts in package.json
+# "start": "node dist/main.js",
+# "start:dev": "ts-node-dev --respawn --transpile-only src/main.ts"
+
+volumes:
+  pg_data:
