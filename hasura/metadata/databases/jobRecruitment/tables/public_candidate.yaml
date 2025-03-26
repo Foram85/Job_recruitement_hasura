@@ -1,0 +1,56 @@
+table:
+  name: candidate
+  schema: public
+array_relationships:
+  - name: job_applications
+    using:
+      foreign_key_constraint_on:
+        column: candidateId
+        table:
+          name: job_application
+          schema: public
+  - name: tokens
+    using:
+      foreign_key_constraint_on:
+        column: candidateId
+        table:
+          name: token
+          schema: public
+insert_permissions:
+  - role: candidate
+    permission:
+      check: {}
+      columns:
+        - password
+    comment: ""
+select_permissions:
+  - role: candidate
+    permission:
+      columns:
+        - created_at
+        - email
+        - id
+        - is_active
+        - name
+        - updated_at
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+    comment: ""
+update_permissions:
+  - role: candidate
+    permission:
+      columns:
+        - name
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null
+    comment: ""
+delete_permissions:
+  - role: candidate
+    permission:
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+    comment: ""

@@ -1,0 +1,10 @@
+table:
+  name: review
+  schema: public
+object_relationships:
+  - name: employee
+    using:
+      foreign_key_constraint_on: employeeId
+  - name: interview
+    using:
+      foreign_key_constraint_on: interviewId

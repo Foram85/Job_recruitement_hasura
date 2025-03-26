@@ -1,0 +1,55 @@
+table:
+  name: job_application
+  schema: public
+object_relationships:
+  - name: candidate
+    using:
+      foreign_key_constraint_on: candidateId
+  - name: employee
+    using:
+      foreign_key_constraint_on: reviewer_id
+  - name: job_position
+    using:
+      foreign_key_constraint_on: positionId
+array_relationships:
+  - name: interviews
+    using:
+      foreign_key_constraint_on:
+        column: applicationId
+        table:
+          name: interview
+          schema: public
+insert_permissions:
+  - role: candidate
+    permission:
+      check: {}
+      columns:
+        - candidateId
+        - candidate_email
+        - candidate_name
+        - cover_letter
+        - expected_salary
+        - positionId
+        - referral_source
+        - resume_url
+    comment: ""
+select_permissions:
+  - role: candidate
+    permission:
+      columns:
+        - applied_at
+        - candidateId
+        - candidate_email
+        - candidate_name
+        - cover_letter
+        - expected_salary
+        - has_reviewed
+        - positionId
+        - referral_source
+        - resume_url
+        - reviewer_id
+        - status
+      filter:
+        candidateId:
+          _eq: X-Hasura-User-Id
+    comment: ""

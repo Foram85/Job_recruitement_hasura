@@ -1,0 +1,17 @@
+table:
+  name: interview
+  schema: public
+object_relationships:
+  - name: employee
+    using:
+      foreign_key_constraint_on: employeeId
+  - name: job_application
+    using:
+      foreign_key_constraint_on: applicationId
+  - name: review
+    using:
+      foreign_key_constraint_on:
+        column: interviewId
+        table:
+          name: review
+          schema: public

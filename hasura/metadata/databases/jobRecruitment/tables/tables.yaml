@@ -1,0 +1,8 @@
+- "!include public_candidate.yaml"
+- "!include public_department.yaml"
+- "!include public_employee.yaml"
+- "!include public_interview.yaml"
+- "!include public_job_application.yaml"
+- "!include public_job_position.yaml"
+- "!include public_review.yaml"
+- "!include public_token.yaml"

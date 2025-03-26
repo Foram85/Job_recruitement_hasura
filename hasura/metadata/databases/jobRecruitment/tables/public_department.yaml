@@ -1,0 +1,18 @@
+table:
+  name: department
+  schema: public
+array_relationships:
+  - name: employees
+    using:
+      foreign_key_constraint_on:
+        column: departmentId
+        table:
+          name: employee
+          schema: public
+  - name: job_positions
+    using:
+      foreign_key_constraint_on:
+        column: departmentId
+        table:
+          name: job_position
+          schema: public

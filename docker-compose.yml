@@ -1,0 +1,65 @@
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  hasura:
+    image: hasura/graphql-engine:latest
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: "postgres://${DB_USER}:${DB_PASSWORD}@postgres:${DB_PORT}/${DB_NAME}"
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+      HASURA_GRAPHQL_JWT_SECRET: >
+        {
+          "type": "HS256",
+          "key": "27ccbf47f939d30265ab6b862f80a8851c2db058669f0a4b0b727b5cd2a670f9",
+          "claims_namespace": "hasura_claims",
+          "claims_map": {
+            "x-hasura-user-id": {"path": "x-hasura-user-id"},
+            "x-hasura-default-role": {"path": "x-hasura-default-role"},
+            "x-hasura-allowed-roles": {"path": "x-hasura-allowed-roles"},
+            "x-hasura-role": {"path": "x-hasura-role"}
+          }
+        }
+
+
+
+  nestjs:
+    build: .
+    depends_on:
+      - postgres
+      - hasura
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+      HASURA_GRAPHQL_ENDPOINT: ${HASURA_GRAPHQL_ENDPOINT}
+      DATABASE_URL: "postgres://${DB_USER}:${DB_PASSWORD}@postgres:${DB_PORT}/${DB_NAME}"
+    volumes:
+      - .:/app  
+      - /app/node_modules  
+    working_dir: /app
+    command: ["npm", "run", "start:dev"]
+
+volumes:
+  pg_data:
