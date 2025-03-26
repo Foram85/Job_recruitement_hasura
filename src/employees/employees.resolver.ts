@@ -1,6 +1,4 @@
 import { GqlAuthGuard } from './../gql-auth.guard';
-import { employeeGuard } from './../Employee.guard';
-import { HrGuard } from './../HR.guard';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { Employee } from './entities/employee.entity';
@@ -21,8 +19,8 @@ export class EmployeeAuthPayload {
 export class EmployeesResolver {
   constructor(private employeesService: EmployeesService) {}
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Employee)
-  @UseGuards(GqlAuthGuard, HrGuard)
   async registerEmployee(
     @Args('data') data: CreateEmployeeInput,
   ): Promise<Employee> {
@@ -53,20 +51,20 @@ export class EmployeesResolver {
     );
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => [Employee])
-  @UseGuards(GqlAuthGuard, employeeGuard)
   async getEmployees(): Promise<Employee[]> {
     return this.employeesService.getAll();
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => Employee)
-  @UseGuards(GqlAuthGuard, employeeGuard)
   async getEmployeeById(@Args('id') id: string): Promise<Employee> {
     return this.employeesService.getById(id);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Employee)
-  // @UseGuards(GqlAuthGuard, HrGuard)
   async updateEmployee(
     @Args('id') id: string,
     @Args('data') updateData: UpdateEmployeeInput,
@@ -74,8 +72,8 @@ export class EmployeesResolver {
     return this.employeesService.updateById(id, updateData);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Boolean)
-  @UseGuards(GqlAuthGuard, HrGuard)
   async deleteEmployee(@Args('id') id: string): Promise<boolean> {
     await this.employeesService.deleteById(id);
     return true;

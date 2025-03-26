@@ -1,5 +1,4 @@
 import { GqlAuthGuard } from './../gql-auth.guard';
-import { RecruiterGuard } from './../recruiter.guard';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { Interview } from './entities/interview.entity';
@@ -7,8 +6,8 @@ import { InterviewService } from './interview.service';
 import { CreateInterviewInput } from './dto/create-interview.input';
 import { UpdateInterviewInput } from './dto/update-interview.input';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(() => Interview)
-@UseGuards(GqlAuthGuard, RecruiterGuard)
 export class InterviewResolver {
   constructor(private interviewService: InterviewService) {}
 

@@ -1,4 +1,3 @@
-import { employeeGuard } from './../Employee.guard';
 import { GqlAuthGuard } from './../gql-auth.guard';
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
@@ -7,8 +6,8 @@ import { ReviewService } from './review.service';
 import { CreateReviewInput } from './dto/create-review.input';
 import { UpdateReviewInput } from './dto/update-review.input';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(() => Review)
-@UseGuards(GqlAuthGuard, employeeGuard)
 export class ReviewResolver {
   constructor(private reviewService: ReviewService) {}
 

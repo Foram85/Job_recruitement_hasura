@@ -46,8 +46,8 @@ export class EmployeesService {
       role: employee.role,
       hasura_claims: {
         "x-hasura-user-id": employee.id,
-        "x-hasura-default-role": "employee",
-        "x-hasura-allowed-roles": ["employee", "hr", "recruiter", "interviewer", "hiring_manager"],
+        "x-hasura-default-role": employee.role,
+        "x-hasura-allowed-roles": ["EMPLOYEE", "HR", "RECRUITER", "INTERVIEWER", "HIRING_MANAGER"],
         "x-hasura-role": employee.role,
       },
     };

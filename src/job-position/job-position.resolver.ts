@@ -1,4 +1,3 @@
-import { HiringManagerGuard } from './../hiring-manager.guard';
 import { GqlAuthGuard } from './../gql-auth.guard';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
@@ -8,12 +7,12 @@ import { CreateJobPositionInput } from './dto/create-job-position.input';
 import { UpdateJobPositionInput } from './dto/update-job-position.input';
 import { FilterPositionInput } from './dto/filter-position.input';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(() => JobPosition)
 export class JobPositionResolver {
   constructor(private jobPositionService: JobPositionService) {}
 
   @Mutation(() => JobPosition)
-  @UseGuards(GqlAuthGuard, HiringManagerGuard)
   async createJobPosition(
     @Args('data') createDto: CreateJobPositionInput,
   ): Promise<JobPosition> {
@@ -26,7 +25,6 @@ export class JobPositionResolver {
   }
 
   @Mutation(() => JobPosition)
-  @UseGuards(GqlAuthGuard, HiringManagerGuard)
   async updateJobPosition(
     @Args('id') id: string,
     @Args('data') updateDto: UpdateJobPositionInput,
@@ -42,7 +40,6 @@ export class JobPositionResolver {
   }
 
   @Mutation(() => Boolean)
-  @UseGuards(GqlAuthGuard, HiringManagerGuard)
   async deleteJobPosition(@Args('id') id: string): Promise<boolean> {
     await this.jobPositionService.deleteById(id);
     return true;

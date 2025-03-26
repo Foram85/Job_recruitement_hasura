@@ -1,6 +1,4 @@
 import { GqlAuthGuard } from './../gql-auth.guard';
-import { RecruiterGuard } from './../recruiter.guard';
-import { CandidateGuard } from './../candidate.guard';
 import { JobApplication } from './../job-application/entities/job-application.entity';
 import { Resolver, Mutation, Query, Args, Context } from '@nestjs/graphql';
 import { UseGuards, ForbiddenException } from '@nestjs/common';
@@ -41,6 +39,7 @@ export class CandidateResolver {
     return true;
   }
 
+  
   @Mutation(() => CandidateAuthPayload)
   async resetPassword(
     @Args('data') data: ResetPasswordInput,
@@ -52,20 +51,20 @@ export class CandidateResolver {
     );
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => [Candidate])
-  @UseGuards(GqlAuthGuard, RecruiterGuard)
   async getAll(): Promise<Candidate[]> {
     return this.candidateService.findAll();
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => Candidate)
-  @UseGuards(GqlAuthGuard, RecruiterGuard)
   async findOneById(@Args('id') id: string): Promise<Candidate> {
     return this.candidateService.findOneById(id);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Candidate)
-  @UseGuards(GqlAuthGuard, CandidateGuard)
   async updateOneById(
     @Args('id') id: string,
     @Args('data') updateDto: UpdateCandidateInput,
@@ -77,8 +76,8 @@ export class CandidateResolver {
     return this.candidateService.updateOneById(id, updateDto);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => String)
-  @UseGuards(GqlAuthGuard, CandidateGuard)
   async deleteById(
     @Args('id') id: string,
     @Context() context,

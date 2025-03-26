@@ -7,7 +7,6 @@ export class EmailService {
 
   constructor() {
     this.client = new postmark.ServerClient(process.env.POSTMARK_TOKEN);
-    console.log('Postmark token:', process.env.POSTMARK_TOKEN);
   }
 
   async sendNewApplicationNotification(
@@ -15,20 +14,15 @@ export class EmailService {
     candidateName: string,
     applicationId: string,
   ): Promise<void> {
-    try {
-      await this.client.sendEmailWithTemplate({
-        From: process.env.EMAIL_FROM,
-        To: hiringManagerEmail,
-        TemplateId: 39236877,
-        TemplateModel: {
-          candidateName,
-          applicationLink: `${applicationId}`,
-        },
-      });
-      console.log('Email sent successfully');
-    } catch (error) {
-      console.error('Error sending email:', error);
-    }
+    await this.client.sendEmailWithTemplate({
+      From: process.env.EMAIL_FROM,
+      To: hiringManagerEmail,
+      TemplateId: 39236877,
+      TemplateModel: {
+        candidateName,
+        applicationLink: `${applicationId}`,
+      },
+    });
   }
 
   async sendInterviewDetailsToCandidate(
