@@ -21,6 +21,8 @@ insert_permissions:
     permission:
       check: {}
       columns:
+        - email
+        - name
         - password
     comment: ""
 select_permissions:
@@ -36,6 +38,46 @@ select_permissions:
       filter:
         id:
           _eq: X-Hasura-User-Id
+    comment: ""
+  - role: HIRING_MANAGER
+    permission:
+      columns:
+        - created_at
+        - email
+        - is_active
+        - name
+        - updated_at
+      filter: {}
+    comment: ""
+  - role: HR
+    permission:
+      columns:
+        - created_at
+        - email
+        - is_active
+        - name
+        - updated_at
+      filter: {}
+    comment: ""
+  - role: INTERVIEWER
+    permission:
+      columns:
+        - created_at
+        - email
+        - is_active
+        - name
+        - updated_at
+      filter: {}
+    comment: ""
+  - role: RECRUITER
+    permission:
+      columns:
+        - created_at
+        - email
+        - is_active
+        - name
+        - updated_at
+      filter: {}
     comment: ""
 update_permissions:
   - role: candidate

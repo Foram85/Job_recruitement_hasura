@@ -13,3 +13,158 @@ array_relationships:
         table:
           name: job_application
           schema: public
+insert_permissions:
+  - role: HIRING_MANAGER
+    permission:
+      check: {}
+      columns:
+        - closing_at
+        - departmentId
+        - description
+        - experience_level
+        - is_remote
+        - job_location
+        - opening_at
+        - openings
+        - position_type
+        - requirements
+        - salary_max
+        - salary_min
+        - title
+    comment: ""
+  - role: HR
+    permission:
+      check: {}
+      columns:
+        - closing_at
+        - departmentId
+        - description
+        - experience_level
+        - is_remote
+        - job_location
+        - opening_at
+        - openings
+        - position_status
+        - position_type
+        - requirements
+        - salary_max
+        - salary_min
+        - title
+    comment: ""
+select_permissions:
+  - role: HIRING_MANAGER
+    permission:
+      columns:
+        - is_remote
+        - experience_level
+        - job_location
+        - requirements
+        - title
+        - openings
+        - salary_max
+        - salary_min
+        - description
+        - closing_at
+        - created_at
+        - opening_at
+        - updated_at
+        - position_status
+        - position_type
+        - departmentId
+        - id
+      filter: {}
+    comment: ""
+  - role: HR
+    permission:
+      columns:
+        - is_remote
+        - experience_level
+        - job_location
+        - requirements
+        - title
+        - openings
+        - salary_max
+        - salary_min
+        - description
+        - closing_at
+        - created_at
+        - opening_at
+        - updated_at
+        - position_status
+        - position_type
+        - departmentId
+        - id
+      filter: {}
+    comment: ""
+  - role: RECRUITER
+    permission:
+      columns:
+        - is_remote
+        - experience_level
+        - job_location
+        - requirements
+        - title
+        - openings
+        - salary_max
+        - salary_min
+        - description
+        - closing_at
+        - created_at
+        - opening_at
+        - updated_at
+        - position_status
+        - position_type
+        - departmentId
+        - id
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: HIRING_MANAGER
+    permission:
+      columns:
+        - closing_at
+        - departmentId
+        - description
+        - experience_level
+        - is_remote
+        - job_location
+        - opening_at
+        - openings
+        - position_status
+        - position_type
+        - requirements
+        - salary_max
+        - salary_min
+        - title
+      filter: {}
+      check: null
+    comment: ""
+  - role: HR
+    permission:
+      columns:
+        - closing_at
+        - departmentId
+        - description
+        - experience_level
+        - is_remote
+        - job_location
+        - opening_at
+        - openings
+        - position_status
+        - position_type
+        - requirements
+        - salary_max
+        - salary_min
+        - title
+      filter: {}
+      check: null
+    comment: ""
+delete_permissions:
+  - role: HIRING_MANAGER
+    permission:
+      filter: {}
+    comment: ""
+  - role: HR
+    permission:
+      filter: {}
+    comment: ""

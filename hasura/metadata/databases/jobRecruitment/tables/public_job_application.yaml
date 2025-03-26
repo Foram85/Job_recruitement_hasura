@@ -37,6 +37,62 @@ select_permissions:
   - role: candidate
     permission:
       columns:
+        - has_reviewed
+        - candidate_email
+        - candidate_name
+        - cover_letter
+        - referral_source
+        - resume_url
+        - expected_salary
+        - applied_at
+        - status
+        - candidateId
+        - id
+        - positionId
+        - reviewer_id
+      filter:
+        candidateId:
+          _eq: X-Hasura-User-Id
+    comment: ""
+  - role: HRING_MANAGER
+    permission:
+      columns:
+        - has_reviewed
+        - candidate_email
+        - candidate_name
+        - cover_letter
+        - referral_source
+        - resume_url
+        - expected_salary
+        - applied_at
+        - status
+        - candidateId
+        - id
+        - positionId
+        - reviewer_id
+      filter: {}
+    comment: ""
+  - role: HR
+    permission:
+      columns:
+        - has_reviewed
+        - candidate_email
+        - candidate_name
+        - cover_letter
+        - referral_source
+        - resume_url
+        - expected_salary
+        - applied_at
+        - status
+        - candidateId
+        - id
+        - positionId
+        - reviewer_id
+      filter: {}
+    comment: ""
+  - role: INTERVIEWER
+    permission:
+      columns:
         - applied_at
         - candidateId
         - candidate_email
@@ -49,7 +105,55 @@ select_permissions:
         - resume_url
         - reviewer_id
         - status
-      filter:
-        candidateId:
-          _eq: X-Hasura-User-Id
+      filter: {}
+    comment: ""
+  - role: RECRUITER
+    permission:
+      columns:
+        - has_reviewed
+        - candidate_email
+        - candidate_name
+        - cover_letter
+        - referral_source
+        - resume_url
+        - expected_salary
+        - applied_at
+        - status
+        - candidateId
+        - id
+        - positionId
+        - reviewer_id
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: HIRING_MANAGER
+    permission:
+      columns:
+        - status
+      filter: {}
+      check: null
+    comment: ""
+  - role: HR
+    permission:
+      columns:
+        - status
+      filter: {}
+      check: null
+    comment: ""
+delete_permissions:
+  - role: candidate
+    permission:
+      filter: {}
+    comment: ""
+  - role: HIRING_MANAGER
+    permission:
+      filter: {}
+    comment: ""
+  - role: HR
+    permission:
+      filter: {}
+    comment: ""
+  - role: RECRUITER
+    permission:
+      filter: {}
     comment: ""

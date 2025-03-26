@@ -16,3 +16,61 @@ array_relationships:
         table:
           name: job_position
           schema: public
+insert_permissions:
+  - role: HR
+    permission:
+      check: {}
+      columns:
+        - name
+    comment: ""
+select_permissions:
+  - role: HIRING_MANAGER
+    permission:
+      columns:
+        - is_active
+        - name
+        - created_at
+        - id
+      filter: {}
+    comment: ""
+  - role: HR
+    permission:
+      columns:
+        - is_active
+        - name
+        - created_at
+        - id
+      filter: {}
+    comment: ""
+  - role: INTERVIEWER
+    permission:
+      columns:
+        - is_active
+        - name
+        - created_at
+        - id
+      filter: {}
+    comment: ""
+  - role: RECRUITER
+    permission:
+      columns:
+        - is_active
+        - name
+        - created_at
+        - id
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: HR
+    permission:
+      columns:
+        - is_active
+        - name
+      filter: {}
+      check: null
+    comment: ""
+delete_permissions:
+  - role: HR
+    permission:
+      filter: {}
+    comment: ""

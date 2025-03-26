@@ -8,3 +8,117 @@ object_relationships:
   - name: interview
     using:
       foreign_key_constraint_on: interviewId
+insert_permissions:
+  - role: HR
+    permission:
+      check: {}
+      columns:
+        - communication_score
+        - employeeId
+        - interviewId
+        - isRecommended
+        - review_date
+        - review_text
+        - technical_score
+    comment: ""
+select_permissions:
+  - role: HIRING_MANAGER
+    permission:
+      columns:
+        - isRecommended
+        - review_text
+        - communication_score
+        - technical_score
+        - created_at
+        - review_date
+        - updated_at
+        - status
+        - employeeId
+        - id
+        - interviewId
+      filter: {}
+    comment: ""
+  - role: HR
+    permission:
+      columns:
+        - isRecommended
+        - review_text
+        - communication_score
+        - technical_score
+        - created_at
+        - review_date
+        - updated_at
+        - status
+        - employeeId
+        - id
+        - interviewId
+      filter: {}
+    comment: ""
+  - role: INTERVIEWER
+    permission:
+      columns:
+        - isRecommended
+        - review_text
+        - communication_score
+        - technical_score
+        - created_at
+        - review_date
+        - updated_at
+        - status
+        - employeeId
+        - id
+        - interviewId
+      filter: {}
+    comment: ""
+  - role: RECRUITER
+    permission:
+      columns:
+        - isRecommended
+        - review_text
+        - communication_score
+        - technical_score
+        - created_at
+        - review_date
+        - updated_at
+        - status
+        - employeeId
+        - id
+        - interviewId
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: HR
+    permission:
+      columns:
+        - communication_score
+        - employeeId
+        - interviewId
+        - isRecommended
+        - review_date
+        - review_text
+        - technical_score
+      filter: {}
+      check: null
+    comment: ""
+  - role: INTERVIEWER
+    permission:
+      columns:
+        - communication_score
+        - employeeId
+        - interviewId
+        - isRecommended
+        - review_date
+        - review_text
+        - technical_score
+      filter: {}
+      check: null
+    comment: ""
+delete_permissions:
+  - role: HR
+    permission:
+      filter: {}
+    comment: ""
+  - role: INTERVIEWER
+    permission:
+      filter: {}
+    comment: ""

@@ -34,3 +34,133 @@ array_relationships:
         table:
           name: token
           schema: public
+insert_permissions:
+  - role: HIRING_MANAGER
+    permission:
+      check:
+        id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - password
+    comment: ""
+  - role: HR
+    permission:
+      check: {}
+      columns:
+        - departmentId
+        - email
+        - hire_date
+        - name
+        - phone
+        - role
+        - status
+    comment: ""
+  - role: INTERVIEWER
+    permission:
+      check:
+        id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - password
+    comment: ""
+  - role: RECRUITER
+    permission:
+      check:
+        id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - password
+    comment: ""
+select_permissions:
+  - role: HIRING_MANAGER
+    permission:
+      columns:
+        - created_at
+        - departmentId
+        - email
+        - hire_date
+        - is_active
+        - name
+        - phone
+        - role
+        - status
+        - updated_at
+      filter: {}
+    comment: ""
+  - role: HR
+    permission:
+      columns:
+        - created_at
+        - departmentId
+        - email
+        - hire_date
+        - id
+        - is_active
+        - name
+        - phone
+        - role
+        - status
+        - updated_at
+      filter: {}
+    comment: ""
+  - role: RECRUITER
+    permission:
+      columns:
+        - created_at
+        - departmentId
+        - email
+        - hire_date
+        - is_active
+        - name
+        - phone
+        - role
+        - status
+        - updated_at
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: HIRING_MANAGER
+    permission:
+      columns:
+        - name
+        - phone
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null
+    comment: ""
+  - role: HR
+    permission:
+      columns:
+        - departmentId
+        - email
+        - role
+        - status
+      filter: {}
+      check: null
+    comment: ""
+  - role: INTERVIEWER
+    permission:
+      columns:
+        - name
+        - phone
+      filter: {}
+      check:
+        id:
+          _eq: X-Hasura-User-Id
+    comment: ""
+  - role: RECRUITER
+    permission:
+      columns:
+        - name
+        - phone
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null
+    comment: ""
+delete_permissions:
+  - role: HR
+    permission:
+      filter: {}
+    comment: ""
