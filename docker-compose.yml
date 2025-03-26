@@ -29,14 +29,14 @@ services:
       HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
       HASURA_GRAPHQL_JWT_SECRET: >
         {
-          "type": "HS256",
-          "key": "27ccbf47f939d30265ab6b862f80a8851c2db058669f0a4b0b727b5cd2a670f9",
-          "claims_namespace": "hasura_claims",
-          "claims_map": {
-            "x-hasura-user-id": {"path": "x-hasura-user-id"},
-            "x-hasura-default-role": {"path": "x-hasura-default-role"},
-            "x-hasura-allowed-roles": {"path": "x-hasura-allowed-roles"},
-            "x-hasura-role": {"path": "x-hasura-role"}
+           "type": "HS256",
+            "key": "27ccbf47f939d30265ab6b862f80a8851c2db058669f0a4b0b727b5cd2a670f9",
+            "claims_namespace": "hasura_claims",
+            "claims_map": {
+              "x-hasura-user-id": {"path": "hasura_claims.x-hasura-user-id"},
+              "x-hasura-default-role": {"path": "hasura_claims.x-hasura-default-role"},
+              "x-hasura-allowed-roles": {"path": "hasura_claims.x-hasura-allowed-roles"},
+              "x-hasura-role": {"path": "hasura_claims.x-hasura-role"}
           }
         }
 
