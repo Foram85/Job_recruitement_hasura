@@ -25,7 +25,7 @@ import { ConfigModule } from '@nestjs/config';
       type: 'postgres',
       url: `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
       autoLoadEntities: true,
-      synchronize: false,
+      synchronize: true,
     }),
     EmployeesModule,
     DepartmentModule,
@@ -34,7 +34,7 @@ import { ConfigModule } from '@nestjs/config';
     JobApplicationModule,
     InterviewModule,
     TokenModule,
-    ReviewModule,
+    ReviewModule
   ],
 })
 export class AppModule {}

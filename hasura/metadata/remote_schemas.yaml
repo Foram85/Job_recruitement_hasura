@@ -1,1 +1,174 @@
-[]
+- name: NestJSAPI
+  definition:
+    url: http://nestjs:3000/graphql
+    timeout_seconds: 60
+    customization: {}
+    forward_client_headers: true
+  comment: ""
+  permissions:
+    - role: public
+      definition:
+        schema: |
+          schema {
+            query: Query
+          }
+          scalar DateTime
+          type Department {
+            createdAt: DateTime!
+            id: ID!
+            isActive: Boolean!
+            name: String!
+          }
+          type JobPosition {
+            closingAt: DateTime!
+            createdAt: DateTime!
+            department: Department!
+            description: String!
+            experienceLevel: String!
+            id: ID!
+            isRemote: Boolean!
+            jobLocation: String!
+            openingAt: DateTime!
+            openings: Float!
+            positionStatus: PositionStatus!
+            positionType: PositionType!
+            requirements: String!
+            salaryMax: Float!
+            salaryMin: Float!
+            title: String!
+            updatedAt: DateTime!
+          }
+          type Query {
+            getAllJobPositions(filter: FilterPositionInput): [JobPosition!]!
+            getJobPositionById(id: String!): JobPosition!
+          }
+          enum PositionStatus {
+            FILLED
+            OPEN
+          }
+          enum PositionType {
+            CONTRACT
+            FULL_TIME
+            PART_TIME
+          }
+          input FilterPositionInput {
+            isRemote: Boolean
+            search: String
+            status: PositionStatus
+            type: PositionType
+          }
+    - role: HR
+      definition:
+        schema: |
+          schema {
+            query: Query
+            mutation: Mutation
+          }
+          scalar DateTime
+          type Candidate {
+            applications: [JobApplication!]!
+            createdAt: DateTime!
+            email: String!
+            id: ID!
+            isActive: Boolean!
+            name: String!
+            updatedAt: DateTime!
+          }
+          type Department {
+            createdAt: DateTime!
+            id: ID!
+            isActive: Boolean!
+            name: String!
+          }
+          type Employee {
+            createdAt: DateTime!
+            department: Department!
+            email: String!
+            hireDate: DateTime!
+            id: ID!
+            isActive: Boolean!
+            name: String!
+            phone: String!
+            role: EmployeeRole!
+            status: EmployeeStatus!
+            updatedAt: DateTime!
+          }
+          type JobApplication {
+            appliedAt: DateTime!
+            candidate: Candidate
+            candidateEmail: String
+            candidateName: String
+            coverLetter: String!
+            expectedSalary: Float!
+            hasReviewed: Boolean!
+            id: ID!
+            position: JobPosition!
+            referralSource: String!
+            resumeUrl: String!
+            reviewerId: Employee
+            status: ApplicationStatus!
+          }
+          type JobPosition {
+            closingAt: DateTime!
+            createdAt: DateTime!
+            department: Department!
+            description: String!
+            experienceLevel: String!
+            id: ID!
+            isRemote: Boolean!
+            jobLocation: String!
+            openingAt: DateTime!
+            openings: Float!
+            positionStatus: PositionStatus!
+            positionType: PositionType!
+            requirements: String!
+            salaryMax: Float!
+            salaryMin: Float!
+            title: String!
+            updatedAt: DateTime!
+          }
+          type Mutation {
+            registerEmployee(data: CreateEmployeeInput!): Employee!
+          }
+          type Query {
+            getAll: [Candidate!]!
+          }
+          enum ApplicationStatus {
+            APPROVED
+            HIRED
+            INTERVIEW
+            NEW
+            OFFER
+            REJECTED
+            REVIEW
+            SCREENING
+          }
+          enum EmployeeRole {
+            Employee
+            HR
+            HiringManager
+            Interviewer
+            Recruiter
+          }
+          enum EmployeeStatus {
+            Contract
+            FullTime
+            PartTime
+          }
+          enum PositionStatus {
+            FILLED
+            OPEN
+          }
+          enum PositionType {
+            CONTRACT
+            FULL_TIME
+            PART_TIME
+          }
+          input CreateEmployeeInput {
+            departmentId: String!
+            email: String!
+            hireDate: DateTime!
+            name: String!
+            phone: String!
+            role: EmployeeRole!
+          }

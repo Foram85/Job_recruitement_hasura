@@ -1,9 +1,9 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum EmployeeStatus {
-  FullTime = 'full_time',
-  PartTime = 'part_time',
-  Contract = 'contract',
+  FullTime = 'FULL_TIME',
+  PartTime = 'PART_TIME',
+  Contract = 'CONTRACT',
 }
 
 registerEnumType(EmployeeStatus, {
