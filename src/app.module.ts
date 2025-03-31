@@ -19,6 +19,7 @@ import { ConfigModule } from '@nestjs/config';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.graphql'),
       playground: true,
+      introspection: true,
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

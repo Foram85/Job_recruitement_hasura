@@ -96,7 +96,95 @@ select_permissions:
         - id
       filter: {}
     comment: ""
+  - role: HRING_MANAGER
+    permission:
+      columns:
+        - is_remote
+        - experience_level
+        - job_location
+        - requirements
+        - title
+        - openings
+        - salary_max
+        - salary_min
+        - description
+        - closing_at
+        - created_at
+        - opening_at
+        - updated_at
+        - position_status
+        - position_type
+        - departmentId
+        - id
+      filter: {}
+    comment: ""
+  - role: INTERVIEWER
+    permission:
+      columns:
+        - is_remote
+        - experience_level
+        - job_location
+        - requirements
+        - title
+        - openings
+        - salary_max
+        - salary_min
+        - description
+        - closing_at
+        - created_at
+        - opening_at
+        - updated_at
+        - position_status
+        - position_type
+        - departmentId
+        - id
+      filter: {}
+    comment: ""
   - role: RECRUITER
+    permission:
+      columns:
+        - is_remote
+        - experience_level
+        - job_location
+        - requirements
+        - title
+        - openings
+        - salary_max
+        - salary_min
+        - description
+        - closing_at
+        - created_at
+        - opening_at
+        - updated_at
+        - position_status
+        - position_type
+        - departmentId
+        - id
+      filter: {}
+    comment: ""
+  - role: candidate
+    permission:
+      columns:
+        - is_remote
+        - experience_level
+        - job_location
+        - requirements
+        - title
+        - openings
+        - salary_max
+        - salary_min
+        - description
+        - closing_at
+        - created_at
+        - opening_at
+        - updated_at
+        - position_status
+        - position_type
+        - departmentId
+        - id
+      filter: {}
+    comment: ""
+  - role: public
     permission:
       columns:
         - is_remote

@@ -25,6 +25,16 @@ insert_permissions:
       check: {}
       columns:
         - candidateId
+        - cover_letter
+        - expected_salary
+        - positionId
+        - referral_source
+        - resume_url
+    comment: ""
+  - role: public
+    permission:
+      check: {}
+      columns:
         - candidate_email
         - candidate_name
         - cover_letter
@@ -34,27 +44,7 @@ insert_permissions:
         - resume_url
     comment: ""
 select_permissions:
-  - role: candidate
-    permission:
-      columns:
-        - has_reviewed
-        - candidate_email
-        - candidate_name
-        - cover_letter
-        - referral_source
-        - resume_url
-        - expected_salary
-        - applied_at
-        - status
-        - candidateId
-        - id
-        - positionId
-        - reviewer_id
-      filter:
-        candidateId:
-          _eq: X-Hasura-User-Id
-    comment: ""
-  - role: HRING_MANAGER
+  - role: HR
     permission:
       columns:
         - has_reviewed
@@ -72,7 +62,7 @@ select_permissions:
         - reviewer_id
       filter: {}
     comment: ""
-  - role: HR
+  - role: HRING_MANAGER
     permission:
       columns:
         - has_reviewed
@@ -125,6 +115,26 @@ select_permissions:
         - reviewer_id
       filter: {}
     comment: ""
+  - role: candidate
+    permission:
+      columns:
+        - has_reviewed
+        - candidate_email
+        - candidate_name
+        - cover_letter
+        - referral_source
+        - resume_url
+        - expected_salary
+        - applied_at
+        - status
+        - candidateId
+        - id
+        - positionId
+        - reviewer_id
+      filter:
+        candidateId:
+          _eq: X-Hasura-User-Id
+    comment: ""
 update_permissions:
   - role: HIRING_MANAGER
     permission:
@@ -141,10 +151,6 @@ update_permissions:
       check: null
     comment: ""
 delete_permissions:
-  - role: candidate
-    permission:
-      filter: {}
-    comment: ""
   - role: HIRING_MANAGER
     permission:
       filter: {}
@@ -154,6 +160,10 @@ delete_permissions:
       filter: {}
     comment: ""
   - role: RECRUITER
+    permission:
+      filter: {}
+    comment: ""
+  - role: candidate
     permission:
       filter: {}
     comment: ""
